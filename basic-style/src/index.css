@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+/*  basic style - h2 style add */
+h1 {
+  color: navy;
+  font-size: 40px;
+}
+
+h2 {
+  color: brown;
+}
