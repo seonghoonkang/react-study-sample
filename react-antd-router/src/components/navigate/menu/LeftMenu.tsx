@@ -48,7 +48,7 @@ class LeftMenu extends React.Component<LeftMenuProps, LeftMenuStates> {
         <br />
         <br />
         <Menu
-          style={{ width: 256 }}
+          style={{ width: '100%' }}
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           mode={this.state.mode}

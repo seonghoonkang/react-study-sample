@@ -1,34 +1,42 @@
 import * as React from 'react';
 import '../resource/style/App.css';
-import TopMenu from './layout/TopMenu';
-import MainContent from './layout/Content';
-import { Layout } from 'antd';
-import LeftMenu from '../components/navigate/menu/LeftMenu';
-const { Footer, Sider, Content, Header } = Layout;
+import { Route, Switch } from 'react-router';
+import Main from './content/Main';
+import Login from './content/Login';
+interface AppProps {
+  auth: boolean;
+  loginResult?: string;
+}
+interface AppStates {
+  auth: boolean;
+}
+class App extends React.Component<AppProps, AppStates> {
+  constructor(props: AppProps) {
+    super(props);
+    this.state = {
+      auth: this.props.auth
+    };
+  }
+  componentWillUpdate() {
+    this.setState({ auth: false });
+  }
 
-class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <Layout
-          onLoad={() => {
-            console.log('onload Layout');
+      <Switch>
+        {/* <Route path="/login" component={Login} /> */}
+        <Route
+          exact={true}
+          path="/"
+          render={() => {
+            if (this.state.auth) {
+              return <Main />;
+            } else {
+              return <Login />;
+            }
           }}
-        >
-          <Header>
-            <TopMenu />
-          </Header>
-          <Layout>
-            <Sider width={256} style={{ background: '#fff' }}>
-              <LeftMenu />
-            </Sider>
-            <Content>
-              <MainContent date="2018-04-01 11:30:12" />
-            </Content>
-          </Layout>
-          <Footer>Footer</Footer>
-        </Layout>
-      </div>
+        />
+      </Switch>
     );
   }
 }

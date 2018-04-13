@@ -8,12 +8,15 @@ interface ContentStats {
 }
 
 class Content extends React.Component<ContentProps, ContentStats> {
+  private handle: NodeJS.Timer;
+
   constructor(props: ContentProps) {
     super(props);
     this.state = {
       date: props.date == null ? new Date() : new Date(props.date)
     };
   }
+
   componentWillMount() {
     console.log('will mount! ');
     this.clock();
@@ -43,7 +46,12 @@ class Content extends React.Component<ContentProps, ContentStats> {
       this.setState({ date: new Date(this.state.date.getTime() + oneSecond) });
       console.log('Time was increas.');
     };
-    setInterval(setWatch, oneSecond);
+    this.handle = setInterval(setWatch, oneSecond);
+  }
+
+  componentWillUnmount() {
+    console.log('timer stop!');
+    clearInterval(this.handle);
   }
 }
 
